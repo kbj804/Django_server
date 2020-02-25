@@ -55,13 +55,13 @@ def extract_keyword(user_message):
     
 
 # 임시 데모를 위해 table타입 없애고 String만 추출함
-def return_string(docs):
-    print("DOCS ",docs)
+def return_string(es_result):
     try:
-        for i in range(0,int(docs['total'])-1):
-            data_type = docs['hits'][i]['_source']['data_type']
+        for i in range(0,int(es_result['total'])-1):
+            data_type = es_result['hits'][i]['_source']['data_type']
             if data_type == 'string':
-                return docs['hits'][i]['_source']['content']
+                print(json.dumps(es_result, indent=4,  ensure_ascii=False))
+                return es_result['hits'][i]['_source']['content']
             else:
                 print("ERROR: NOT EXIST STRING TYPE")
 
@@ -77,17 +77,17 @@ def search_elastic(word):
         method = 'search_content'
         query = url + method + '=' + word
         res = requests.get(query)
-        print(res.text)
+        #print(res.text)
         # ast => String 타입을 Dic 으로 변환
-        docs = ast.literal_eval(res.text)
-        print("DOCS ",docs)
-        return docs
+        es_result = ast.literal_eval(res.text)
+        #print(json.dumps(es_result, indent=4,  ensure_ascii=False))
+        return es_result
 
     except:
         print("### search_elastic ERROR ###")
         return res.text
 
-        
+
 # 임시 상위 스코어 ELK 검색결과 리턴 
 def request_message(user_message):
 
@@ -95,12 +95,12 @@ def request_message(user_message):
     
 
     word = extract_keyword(user_message)
-    docs = search_elastic(word)
+    es_result = search_elastic(word)
 
     #print(json.dumps(docs, indent=4,  ensure_ascii=False)) # json 파일 이쁘게 출력
  
-    messages = return_string(docs)
-    print(messages)
+    messages = return_string(es_result)
+    #print(messages)
     passage = ' '.join(messages)
     print("Passage : ",passage)
     question = user_message
@@ -124,7 +124,7 @@ def request_message(user_message):
     
     p = str(response.data,"utf-8")
     d = ast.literal_eval(p)
-    print(d)
+    #print(d)
     message = d['return_object']['MRCInfo']['answer']
     
     return message

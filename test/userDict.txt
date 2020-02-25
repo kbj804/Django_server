@@ -1,0 +1,4 @@
+iXVDR	NNP	3.0
+ERR2034	NNP	1.0
+다문화가족	NNP	3.0
+설명해줘	VV	3.0
