@@ -24,6 +24,11 @@ tfidf_matrix = tfidf.fit_transform(data['overview'])
 # overview에 대해서 tf-idf 수행
 print(tfidf_matrix.shape)
 
+#%%
+srch_vector = vectorize.transform([
+    '공장을 이전하였는데 전기설비를 옮겨서 계속 사용할 수 있나요?'
+])
+
 # %% 코사인 유사도를 구합니다.
 # linear_kernel는 두 벡터의 dot product 임
 from sklearn.metrics.pairwise import linear_kernel

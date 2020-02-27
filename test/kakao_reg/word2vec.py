@@ -30,6 +30,6 @@ def most_similar(word):
 if __name__ == '__main__':
     #create_model(r"./server_project/test/kakao_reg/noun_token.csv")
 
-    word = '수정'
+    word = '죽'
     r = most_similar(word)
     print(r)
