@@ -1,27 +1,28 @@
-#%% loading data
+
+
 from numpy import dot
 from numpy.linalg import norm
 import numpy as np
 
 import pandas as pd
-data = pd.read_csv(r"./token.csv")
+data = pd.read_csv(r"./server_project/test/token.csv")
 data.head(2)
 
 data['token'].isnull().sum()
 # overview에서 Null 값을 가진 경우에는 값 제거
 data['token'] = data['token'].fillna('')
 
-#%% 형태소 분석이 끝난 후의 질문들로 학습 벡터 생성
+# 형태소 분석이 끝난 후의 질문들로 학습 벡터 생성
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf = TfidfVectorizer()
 tfidf_matrix = tfidf.fit_transform(data['token'])
 # overview에 대해서 tf-idf 수행
 print(tfidf_matrix.shape)
 
-# %%
+
 from kiwipiepy import Kiwi
 kiwi = Kiwi()
-kiwi.load_user_dictionary(r'./userDict.txt')
+kiwi.load_user_dictionary(r'./server_project/test/userDict.txt')
 kiwi.prepare()
 def generate_morp_word(sentence,analyze_num):
     try:
@@ -62,9 +63,10 @@ def get_all_token(sen):
     morp_list, nn_list, vv_list = generate_morp_word(sen, 1)
     return morp_list
 
-#%% 직접적으로 비교할 문장을 벡터화하여 두 벡터 사이의 코사인유사도를 구함
-sen = '누전차단기 수리는 누가해'
 
+
+# 직접적으로 비교할 문장을 벡터화하여 두 벡터 사이의 코사인유사도를 구함
+sen = '선과장에 농사요금을 받을수 있나요?'
 srch_vector = tfidf.transform(get_all_token(sen))
 
 # print(srch_vector.shape)
@@ -75,7 +77,6 @@ cosine_sim = linear_kernel(srch_vector, tfidf_matrix).flatten()
 
 # print(cosine_sim)
 
-
 sim_rank_idx = cosine_sim.argsort()[::-1]
 for i in sim_rank_idx:
     if cosine_sim[i] > 0:
@@ -83,5 +84,15 @@ for i in sim_rank_idx:
 
 
 
+"""import matplotlib
+matplotlib.use('TkAgg')
 
-# %%
+import pandas_profiling
+pr = data.profile_report()
+pr.to_file('report.html')
+"""
+
+
+
+
+
