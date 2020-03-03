@@ -1,7 +1,7 @@
 import sqlalchemy
 import pandas as pd
 
-def connect(user, password, db, host='localhost', port=2345):
+def connect(user, password, db, host='localhost', port=5432):
     '''Returns a connection and a metadata object'''
     # We connect with the help of the PostgreSQL URL
     # postgresql://federer:grandestslam@localhost:5432/tennis
@@ -17,8 +17,8 @@ def connect(user, password, db, host='localhost', port=2345):
     return con#, meta
 
 #연결
-engine = connect('root_i', '1234', 'postgres')
+engine = connect('puser', '1234', 'postgres')
 
 #쿼리 조회
-result = pd.read_sql("select * from users limit 1", engine)
+result = pd.read_sql("select * from user limit 1", engine)
 print(result)

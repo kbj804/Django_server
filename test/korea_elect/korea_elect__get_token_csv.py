@@ -1,4 +1,5 @@
  #-*- coding: utf-8 -*-
+ # 형태소 분리 후 새로운 CSV파일 생성 
 import re
 import pandas as pd
 from kiwipiepy import Kiwi
@@ -54,8 +55,12 @@ if __name__ == '__main__':
     print(raw_data.head())
     raw_data = raw_data.dropna()
 
-    raw_data["token"] = raw_data["제목"].apply(lambda x: get_noun(x))
-    raw_data.to_csv(r"./server_project/test/nn_token.csv", index=False)
+    # raw_data["token"] = raw_data["제목"].apply(lambda x: get_noun(x))
+    # raw_data.to_csv(r"./server_project/test/nn_token.csv", index=False)
 
-    raw_data["token"] = raw_data["제목"].apply(lambda x: get_all_token(x))
-    raw_data.to_csv(r"./server_project/test/token.csv", index=False)
+    # raw_data["token"] = raw_data["제목"].apply(lambda x: get_all_token(x))
+    # raw_data.to_csv(r"./server_project/test/token.csv", index=False)
+
+    raw_data["all_token"] = raw_data["제목"].apply(lambda x: get_all_token(x))
+    raw_data["nn_token"] = raw_data["제목"].apply(lambda x: get_noun(x))
+    raw_data.to_csv(r"./server_project/test/korea_elect_FAQ.csv", index=False)
