@@ -1,3 +1,4 @@
+#%%
 #-*-coding:utf-8
 import psycopg2
 import sqlalchemy
@@ -10,17 +11,12 @@ psycopg2를 이용한 db연결은 기존에 내가 사용하던 방법이다. �
 예를 들어 select id from users라고 했으면 column name인 ‘id’에 대한 정보까지 따라왔으면 한다. 이를 pandas를 통해 해결할 수 있다. 
 pd.read_sql("select id from users limit 1", product)를 실행해보면 column name을 포함하면서도 깔끔하게 쿼리결과를 조회할 수 있다.
 
-
 '''
 
 
-# psycopg2 실행
-def execute(query):
-    pc.execute(query)
-    return pc.fetchall()
 
 # sqlalchemy 연결
-def connect(user, password, db, host='localhost', port=2345):
+def connect(user, password, db, host='localhost', port=5432):
     '''Returns a connection and a metadata object'''
     # We connect with the help of the PostgreSQL URL
     # postgresql://federer:grandestslam@localhost:5432/tennis
@@ -37,34 +33,40 @@ def connect(user, password, db, host='localhost', port=2345):
 
 
 # psycopg2 아래 정보를 입력
-user = 'root_i'
+user = 'puser'
 password = '1234'
 host_product = 'localhost'
 dbname = 'postgres'
-port='2345'
+port='5432'
 
 product_connection_string = "dbname={dbname} user={user} host={host} password={password} port={port}"\
                             .format(dbname=dbname,
                                     user=user,
                                     host=host_product,
                                     password=password,
-                                    port=port)    
+                                    port=port)   
+
+#%% 
 try:
     product = psycopg2.connect(product_connection_string)
 except:
     print("I am unable to connect to the database")
 
 pc = product.cursor()
-
+pc.execute(query)
+pc.fetchall()
+#%% 
 
 # psycopg2 쿼리 입력
 query = """
-select id from users limit 1
+select question from question limit 1
 """
-
 # psycopg2 일반적인 쿼리 조회 방법
 psycopg2_result = execute(query)
 
+
+
+#%%
 # psycopg2 pandas를 통한 조회 방법
 psycopg2_result2 = pd.read_sql("select id from users limit 1", product)
 print(psycopg2_result2)

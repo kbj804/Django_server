@@ -17,8 +17,8 @@ def connect(user, password, db, host='localhost', port=5432):
     return con#, meta
 
 #연결
-engine = connect('puser', '1234', 'postgres')
+engine = connect('postgres', '1234', 'postgres')
 
 #쿼리 조회
-result = pd.read_sql("select * from user limit 1", engine)
+result = pd.read_sql("select * from qna_db.question limit 1", engine)
 print(result)
