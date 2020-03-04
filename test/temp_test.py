@@ -1,5 +1,3 @@
-
-
 from numpy import dot
 from numpy.linalg import norm
 import numpy as np

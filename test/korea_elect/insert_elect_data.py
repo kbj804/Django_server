@@ -36,7 +36,7 @@ def insert_question_table():
 print(len(df))
 print(len(df.columns))
 
-if if __name__ == "__main__":
+if __name__ == "__main__":
     connection = psycopg2.connect(host='localhost', user='postgres', password='1234', dbname='postgres')
 
     df = pd.read_csv(r'./server_project/test/korea_elect/result/question_table.csv')
