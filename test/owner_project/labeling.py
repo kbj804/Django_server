@@ -84,7 +84,7 @@ dfs=df[['주민번호','주소','상태','가입일자','최종불입일자','�
 
 # %%
 
-pr = dfs2.profile_report()
+pr = dfs.profile_report()
 pr.to_file('report.html')
 
 # %%
