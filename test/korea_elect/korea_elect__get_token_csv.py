@@ -21,9 +21,11 @@ def generate_morp_word(sentence,analyze_num):
             for word in result[i][0]:
                 morp_word += word[0]
                 morp_word += ' '
-                if word[1] in ['NNG','NNP','NNB','NP','SL','SN']:
+                # NNG: 일반명사, NNP: 고유명사, NNB: 의존명사, NP: 대명사, NR: 수사, SL:외국어, SN: 숫자
+                if word[1] in ['NNG','NNP','NNB','NP','NR','SL','SN']:
                     morp_nn += word[0]
                     morp_nn += ' '
+                # VV: 동사, VA: 형용사, VX: 보조용언, VCP: 긍정지정사, VCN: 부정지정사
                 elif word[1] in ['VV','VA','VX','VCP','VCN']:
                     morp_vv += word[0]
                     morp_vv += ' '
@@ -44,6 +46,10 @@ def get_all_token(sen):
     morp_list, nn_list, vv_list = generate_morp_word(sen, 1)
     return morp_list
 
+def get_vv(sen):
+    morp_list, nn_list, vv_list = generate_morp_word(sen, 1)
+    return vv_list
+
 
 if __name__ == '__main__':
     kiwi = Kiwi()
@@ -53,7 +59,7 @@ if __name__ == '__main__':
 
     raw_data = pd.read_csv(r"./server_project/test/한국전력공사_FAQ_data.csv")
     print(raw_data.head())
-    raw_data = raw_data.dropna()
+    raw_data = raw_data.dropna() # null값 있는 행 제거
 
     # raw_data["token"] = raw_data["제목"].apply(lambda x: get_noun(x))
     # raw_data.to_csv(r"./server_project/test/nn_token.csv", index=False)
@@ -63,4 +69,6 @@ if __name__ == '__main__':
 
     raw_data["all_token"] = raw_data["제목"].apply(lambda x: get_all_token(x))
     raw_data["nn_token"] = raw_data["제목"].apply(lambda x: get_noun(x))
+    raw_data["vv_token"] = raw_data["제목"].apply(lambda x: get_vv(x))
+
     raw_data.to_csv(r"./server_project/test/korea_elect_FAQ.csv", index=False)
