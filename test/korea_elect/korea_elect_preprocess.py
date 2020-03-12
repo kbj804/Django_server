@@ -1,4 +1,5 @@
 #%% loading data
+# 2차 전처리
 from numpy import dot
 from numpy.linalg import norm
 import numpy as np
@@ -12,21 +13,21 @@ print(os.path.abspath(__file__))
 print(os.getcwd())
 
 
-data = pd.read_csv(r'./korea_elect_faq.csv')
+data = pd.read_csv(r'./korea_elect_FAQ.csv')
 data.head(2)
 
 # %% Columns 뭐 있나 확인
 data.columns
 
 # %% 필요한 Columns만 추출
-df = data[['업무분류명', '등록일', '수정일', '제목', '내용', 'FAQ분류', 'all_token', 'nn_token']]
+df = data[['업무분류명', '등록일', '수정일', '제목', '내용', 'FAQ분류', 'all_token', 'nn_token','vv_token']]
 df
 
 # %% Columns 이름 변경
-df.rename(columns={'업무분류명':'intent', '등록일':'question_date', '수정일':'answer_date', '제목':'question', '내용':'answer', 'FAQ분류':'sub_intent', 'all_token':'q_morp', 'nn_token':'q_nn'}, inplace=True)
+df.rename(columns={'업무분류명':'intent', '등록일':'question_date', '수정일':'answer_date', '제목':'question', '내용':'answer', 'FAQ분류':'sub_intent', 'all_token':'q_morp', 'nn_token':'q_nn', 'vv_token':'q_vv'}, inplace=True)
 df.head(5)
 # %%
-question_table = df[['question','intent','sub_intent','q_morp','q_nn','question_date','answer_date','answer']]
+question_table = df[['question','intent','sub_intent','q_morp','q_nn','q_vv','question_date','answer_date','answer']]
 #answer_table = df[['answer','intent',]]
 
 question_table

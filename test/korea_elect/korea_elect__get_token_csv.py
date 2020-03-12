@@ -1,4 +1,5 @@
  #-*- coding: utf-8 -*-
+ # 1차 전처리
  # 형태소 분리 후 새로운 CSV파일 생성 
 import re
 import pandas as pd
@@ -53,11 +54,11 @@ def get_vv(sen):
 
 if __name__ == '__main__':
     kiwi = Kiwi()
-    kiwi.load_user_dictionary(r'./server_project/test/userDict.txt')
+    kiwi.load_user_dictionary(r'./server_project/test/korea_elect/korea_elect_userDict.txt')
     kiwi.prepare()
 
 
-    raw_data = pd.read_csv(r"./server_project/test/한국전력공사_FAQ_data.csv")
+    raw_data = pd.read_csv(r"./server_project/test/korea_elect/data/KEI_FAQ_data.csv")
     print(raw_data.head())
     raw_data = raw_data.dropna() # null값 있는 행 제거
 
@@ -71,4 +72,4 @@ if __name__ == '__main__':
     raw_data["nn_token"] = raw_data["제목"].apply(lambda x: get_noun(x))
     raw_data["vv_token"] = raw_data["제목"].apply(lambda x: get_vv(x))
 
-    raw_data.to_csv(r"./server_project/test/korea_elect_FAQ.csv", index=False)
+    raw_data.to_csv(r"./server_project/test/korea_elect/korea_elect_FAQ.csv", index=False)
