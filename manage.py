@@ -6,7 +6,7 @@
 import os
 import sys
 
-
+#(activate)> python manage.py runserver
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server_project.settings')
     try:
