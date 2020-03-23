@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['mouse_test.py'],
-             pathex=['D:\\Project\\Django\\Scripts\\server_project\\test'],
+             pathex=['D:\\Project\\Django\\Scripts\\server_project'],
              binaries=[],
              datas=[],
              hiddenimports=[],

@@ -18,7 +18,6 @@ def remove_blank(text_array):
             texts.append(line)
     return texts
 
-
 def generate_doc(doc_body, doc_len,index_dictionary):  
     for i in range(doc_len):
         # 일반 텍스트 글들 -> 전처리 필요함
@@ -112,7 +111,7 @@ def make_jsonFile():
     index_dictionary = make_dictionary()
     json_file = []
     # 문서 로드 
-    doc_result = docx2python(r"./doc_data/iGate Introduction-6차.docx")
+    doc_result = docx2python(r"./server_project/search_app/doc_data/iGate Administrator Guide v1.0.17.docx")
     main_title =''
     sub_title =''
     title=''
@@ -127,8 +126,10 @@ def make_jsonFile():
             # 문서 스플릿
             doc_list = generate_doc(doc_body, doc_len,index_dictionary)
             for i, content in enumerate(doc_list):
+                print(content)
                 for text in content:
                     if text in index_dictionary:
+                        print(text)
                         index = index_dictionary[text]
                         index_len = len(index)
                         if index_len == 1:
@@ -154,5 +155,7 @@ def make_jsonFile():
             json_data= generate_doc_to_json(index_len, table, main_title, sub_title, title, "table")
             json_file.append(json_data)
     
-    with open(r"./doc_data/json_filename.json",'w',encoding='utf-8') as make_file:
+    with open(r"./server_project/search_app/result/iGate Administrator Guide.json",'w',encoding='utf-8') as make_file:
         json.dump(json_file, make_file,ensure_ascii=False, indent="\t")
+
+make_jsonFile()

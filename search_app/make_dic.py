@@ -39,14 +39,20 @@ def inverse_dic(text_array):
     return inv_dic
 
 def make_dictionary():
-    doc_result = docx2python(r"./doc_data/contents_list.docx")
+    doc_result = docx2python(r"./server_project/search_app/doc_data/Administrator_CL.docx")
     doc_body_for_dic = doc_result.body[0][0][0]
     first = remove_blank_and_reg(doc_body_for_dic)
+
     contents_list, index_list = reduce_num(first)
 
     # 목차와 index 를 이용하여 사전 생성
-    list_dic ={ key:value for key, value in zip(contents_list ,index_list)}
+    list_dic ={ key:value for key, value in zip(contents_list ,index_list) }
     #list_dic = inverse_dic(second)
-    print(list_dic)
-    
+    li_dic = dict(zip(contents_list ,index_list))
+    print(li_dic)
+    #for key, value in zip(contents_list ,index_list):
+    #    print(key,value)
+
     return list_dic
+
+make_dictionary()
