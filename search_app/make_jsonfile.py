@@ -108,10 +108,10 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
 
 def make_jsonFile():
     # 목차를 이용하여 사전 생성
-    index_dictionary = make_dictionary()
+    index_dictionary = make_dictionary(r"./server_project/search_app/doc_data/iXVDR_CL.docx")
     json_file = []
     # 문서 로드 
-    doc_result = docx2python(r"./server_project/search_app/doc_data/iGate Administrator Guide v1.0.17.docx")
+    doc_result = docx2python(r"./server_project/search_app/doc_data/iXVDR_Manual_양식.docx")
     main_title =''
     sub_title =''
     title=''
@@ -155,7 +155,7 @@ def make_jsonFile():
             json_data= generate_doc_to_json(index_len, table, main_title, sub_title, title, "table")
             json_file.append(json_data)
     
-    with open(r"./server_project/search_app/result/iGate Administrator Guide.json",'w',encoding='utf-8') as make_file:
+    with open(r"./server_project/search_app/result/iXVDR_Sample.json",'w',encoding='utf-8') as make_file:
         json.dump(json_file, make_file,ensure_ascii=False, indent="\t")
 
 make_jsonFile()

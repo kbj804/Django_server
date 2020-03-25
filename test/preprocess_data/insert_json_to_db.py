@@ -21,6 +21,7 @@ def insert_manual_table(json_data):
 
             curs.execute(insert_manual_sql,(data_type, main_title, sub_title, title, str(content)))
         
+        
         connection.commit()
 
 if __name__ == "__main__":

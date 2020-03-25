@@ -38,8 +38,8 @@ def inverse_dic(text_array):
 
     return inv_dic
 
-def make_dictionary():
-    doc_result = docx2python(r"./server_project/search_app/doc_data/Administrator_CL.docx")
+def make_dictionary(doc_path):
+    doc_result = docx2python(doc_path)
     doc_body_for_dic = doc_result.body[0][0][0]
     first = remove_blank_and_reg(doc_body_for_dic)
 
@@ -55,4 +55,4 @@ def make_dictionary():
 
     return list_dic
 
-make_dictionary()
+make_dictionary(r"./server_project/search_app/doc_data/iXVDR_CL.docx")
