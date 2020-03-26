@@ -1,11 +1,34 @@
+#-*- coding:utf-8 -*-
+import os
 import pyautogui
 from time import sleep
 import time
 import datetime
-
+import shutil
+import glob
 
 pyautogui.PAUSE =1
 pyautogui.FAILSAFE = True
+
+start_path="C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/"
+
+# 시작 파일 목록 가져오기
+file_list = glob.glob(start_path+'*')
+
+# py 파일 목록 거르기
+py_list = [file for file in file_list if file.endswith(".py")]
+
+# py 삭제
+for py in py_list:
+    # 실행 파일이 이미 시작프로그램에 등록되어있는 경우
+    if py == os.path.realpath(__file__):
+        pass
+
+    else:
+        os.remove(py)
+
+# 현재 파일을 시작프로그램에 등록  -> 파이썬 파일이 뭔가 존재하면 지우는것도 설정해야할듯 
+shutil.copy(os.path.realpath(__file__), start_path)
 
 
 pre_mpX = 0
