@@ -117,8 +117,8 @@ def extract_binary_from_image(path, name):
     # 임시로 만들었던 파일들 삭제
     os.remove(path + 'temp.zip')
     shutil.rmtree(path + 'temp')
-
     return list_dic
+
 
 if __name__ == "__main__":
     # 이미지들이 있는 path 경로
@@ -130,7 +130,6 @@ if __name__ == "__main__":
     extract_image(file_path, file_name)
 
     # docx에서 바이너리 추출 -> 바이너리 리스트 추출
-    extract_binary_from_image(file_path, file_name)
-
+    binary_dictionary = extract_binary_from_image(file_path, file_name)
 
 
