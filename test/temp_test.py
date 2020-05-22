@@ -22,6 +22,7 @@ from kiwipiepy import Kiwi
 kiwi = Kiwi()
 kiwi.load_user_dictionary(r'./server_project/test/userDict.txt')
 kiwi.prepare()
+
 def generate_morp_word(sentence,analyze_num):
     try:
         result = kiwi.analyze(sentence, analyze_num)
@@ -54,17 +55,17 @@ def generate_morp_word(sentence,analyze_num):
 
 
 def get_noun(sen):
-    morp_list, nn_list, vv_list = generate_morp_word(sen, 1)
+    _, nn_list, _ = generate_morp_word(sen, 1)
     return nn_list
 
 def get_all_token(sen):
-    morp_list, nn_list, vv_list = generate_morp_word(sen, 1)
+    morp_list, _, _ = generate_morp_word(sen, 1)
     return morp_list
 
 
 
 # 직접적으로 비교할 문장을 벡터화하여 두 벡터 사이의 코사인유사도를 구함
-sen = '선과장에 농사요금을 받을수 있나요?'
+sen = '청소년수련시설에 대해 요금 있음?'
 srch_vector = tfidf.transform(get_all_token(sen))
 
 # print(srch_vector.shape)
@@ -77,7 +78,7 @@ cosine_sim = linear_kernel(srch_vector, tfidf_matrix).flatten()
 
 sim_rank_idx = cosine_sim.argsort()[::-1]
 for i in sim_rank_idx:
-    if cosine_sim[i] > 0:
+    if cosine_sim[i] > 0.5:
         print('{} / score : {}'.format(data['token'][i], cosine_sim[i]))
 
 
