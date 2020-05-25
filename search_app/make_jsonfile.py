@@ -18,7 +18,7 @@ def remove_blank(text_array):
             texts.append(line)
     return texts
 
-def generate_doc(doc_body, doc_len,index_dictionary):  
+def generate_doc(doc_body, doc_len, index_dictionary):  
     for i in range(doc_len):
         # 일반 텍스트 글들 -> 전처리 필요함
         contents_lists = remove_blank(list(doc_body[i][0]))
