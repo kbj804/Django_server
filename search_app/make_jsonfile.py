@@ -108,7 +108,7 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
 
 def make_jsonFile():
     # 목차를 이용하여 사전 생성
-    index_dictionary = make_dictionary(r"./server_project/search_app/doc_data/iXVDR_CL.docx")
+    index_dictionary = make_dictionary(r"./server_project/search_app/doc_data/iXVDR_CL.docx", 2)
     json_file = []
     # 문서 로드 
     doc_result = docx2python(r"./server_project/search_app/doc_data/iXVDR_Manual_양식.docx")

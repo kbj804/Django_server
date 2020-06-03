@@ -23,7 +23,7 @@ def extract_word():
             df[tree] = df[tree].apply(lambda x: remove_dot(x, 1))
         elif tree == 'Tree3':
             df[tree] = df[tree].apply(lambda x: remove_dot(x, 2))
-        else:
+        else: # 'Tree1'
             df[tree] = df[tree].apply(lambda x: remove_dot(x, 0))
 
         print(df[tree].head(5))

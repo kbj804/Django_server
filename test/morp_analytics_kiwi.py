@@ -49,7 +49,7 @@ def generate_morp_word(sentence,analyze_num):
     except:
         print("### ERROR 형태소 분석기 부분 에 뭐가 잘못된게 있는듯 ERROR ### ")
 
-sentence = '다문화가족 정책에 대해서 설명해줘.'
+sentence = 'Mapping-Rule Designer 어떻게 알아볼 수 있을까?'
 
 morp_list, nn_list, vv_list = generate_morp_word(sentence, 1)
 

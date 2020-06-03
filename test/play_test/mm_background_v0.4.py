@@ -12,6 +12,8 @@ if __name__ == "__main__":
     pyautogui.PAUSE =1
     pyautogui.FAILSAFE = True
 
+
+    """# 시작 프로그램에 등록하고 싶은 경우(Windows)
     start_path="C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Startup/"
 
     # 시작 파일 목록 가져오기
@@ -36,11 +38,11 @@ if __name__ == "__main__":
 
     # 현재 파일을 시작프로그램에 등록  -> 파이썬 파일이 뭔가 존재하면 지우는것도 설정해야할듯 
     shutil.copy(real_path, start_path)
-
+    """
 
     pre_mpX = 0
     pre_mpY = 0
-
+    
     startTime = time.time()
 
     while True:

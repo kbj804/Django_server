@@ -14,3 +14,4 @@ ERR2034	NNP	1.0
 토지구획정리	NNP	3.0
 건축허가서	NNP	3.0
 배선용차단기	NNP	3.0
+Mapping-Rule Designer	NNP	3.0
