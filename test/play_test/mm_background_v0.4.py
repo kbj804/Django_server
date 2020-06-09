@@ -54,7 +54,7 @@ if __name__ == "__main__":
             # 몇초에 한번 체크할건가?
             sleep(270)
 
-            if (hour == 12 and m > 30) or (hour == 13 and m < 30):
+            if (hour == 12 and m > 0) or (hour == 13 and m < 0):
                 print("### 지금은 점심시간 입니다 ###")
 
             elif (hour >= 20 and hour < 8):

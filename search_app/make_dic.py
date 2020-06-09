@@ -73,12 +73,12 @@ def make_dictionary(doc_path, flag):
         return list_dic
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-    # [ iGate_Contents_list.docx , iTools_Contents_list.docx ] 
-    result_dic = make_dictionary(r"./server_project/search_app/doc_data/iGate_Contents_list.docx", 2)
-    print(result_dic)
+#     # [ iGate_Contents_list.docx , iTools_Contents_list.docx ] 
+#     result_dic = make_dictionary(r"./server_project/search_app/doc_data/iGate_Contents_list.docx", 2)
+#     print(result_dic)
 
-    # 키워드 한번 보자
-    for key in result_dic.keys():
-        print(key, result_dic[key])
+#     # 키워드 한번 보자
+#     for key in result_dic.keys():
+#         print(key, result_dic[key])
