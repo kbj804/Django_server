@@ -18,6 +18,7 @@ def remove_blank(text_array):
             texts.append(line)
     return texts
 
+# doc파일을 List로 변환해서 읽기 쉽도록 해줌
 def generate_doc(doc_body, doc_len, index_dictionary):  
     for i in range(doc_len):
         # 일반 텍스트 글들 -> 전처리 필요함
@@ -28,7 +29,6 @@ def generate_doc(doc_body, doc_len, index_dictionary):
 
         # title 이름 저장
         
-
         # 사전(목차)에 있는 단어인지 비교 후 처리
         for content in contents_lists:
             if content in index_dictionary:
@@ -38,6 +38,8 @@ def generate_doc(doc_body, doc_len, index_dictionary):
                     result_list.append(temp_list2)
                 temp_list.clear()
                 temp_list.append(content)
+
+
             elif content == last_list_value:
                 # 배열 마지막 값 나오면
                 temp_list.append(content)
@@ -75,7 +77,7 @@ def generate_table(doc_body, doc_len):
 
 
 
-
+# doc파일 내용을 List로 받아서 Json으로 변환
 def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title, data_type):
     json_data = OrderedDict()
     #contents_data = OrderedDict()
@@ -106,33 +108,36 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
 
 
 
-def make_jsonFile():
+def make_jsonFile(dic_path, doc_path):
     # 목차를 이용하여 사전 생성
-    index_dictionary = make_dictionary(r"./server_project/search_app/doc_data/iXVDR_CL.docx", 2)
+    index_dictionary = make_dictionary(dic_path, 2)
     json_file = []
     # 문서 로드 
-    doc_result = docx2python(r"./server_project/search_app/doc_data/iXVDR_Manual_양식.docx")
+    doc_result = docx2python(doc_path)
     main_title =''
     sub_title =''
     title=''
     index_len=''
 
-    for j in range(1,len(doc_result.body)):
+    for j in range(1, len(doc_result.body)):
         doc_body = doc_result.body[j]
         doc_len = len(doc_body)
 
         
         if doc_len == 1:
             # 문서 스플릿
-            doc_list = generate_doc(doc_body, doc_len,index_dictionary)
-            for i, content in enumerate(doc_list):
-                print(content)
+            doc_list = generate_doc(doc_body, doc_len, index_dictionary)
+            print(doc_list)
+            for _, content in enumerate(doc_list):
+                #print(content)
                 for text in content:
                     if text in index_dictionary:
-                        print(text)
-                        index = index_dictionary[text]
+                        #print(text)
+                        index = index_dictionary[text] # index는 해당 목차(사전)의 번호
                         index_len = len(index)
-                        if index_len == 1:
+                        
+                        # 1: 대분류 / 2: 중분류 / 3: 소분류
+                        if index_len == 1: 
                             main_title = text
                             sub_title = text
                             title = text
@@ -155,7 +160,10 @@ def make_jsonFile():
             json_data= generate_doc_to_json(index_len, table, main_title, sub_title, title, "table")
             json_file.append(json_data)
     
-    with open(r"./server_project/search_app/result/iXVDR_Sample.json",'w',encoding='utf-8') as make_file:
+    with open(r"./server_project/search_app/result/iGate Introduction.json", 'w',encoding='utf-8') as make_file:
         json.dump(json_file, make_file,ensure_ascii=False, indent="\t")
 
-make_jsonFile()
+dic_path = "./server_project/search_app/doc_data/iGate_Contents_list.docx"
+doc_path = "./server_project/search_app/doc_data/iGate Introduction.docx"
+make_jsonFile(dic_path, doc_path)
+

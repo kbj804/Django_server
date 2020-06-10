@@ -1,3 +1,5 @@
+# 목차(Contents List)를 Dictionary로 바꿀 때 사용
+# 기본적으로 소문자로 변환해서 사전에 추가하고 그럼
 from kiwipiepy import Kiwi
 from make_dic import make_dictionary
 import time
@@ -60,7 +62,7 @@ def transform_Sentence_English2Lower(input_s):
             s_list.append(word)
     return sentence.join(s_list)
 
-# 리스트받아올때 영어 소문자로 변환 후 반환
+# 리스트 받아올때 영어 소문자로 변환 후 반환
 def transform_List_English2Lower(input_l):
     contents_list=[]
     for word in input_l:
