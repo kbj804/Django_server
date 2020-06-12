@@ -54,7 +54,12 @@ def find_num_n_remove_Back(doc_list): # 뒷부분에 있는 숫자(페이지)를
                 break
     return result_list
 
-def make_dictionary(doc_path, flag):
+
+
+def make_dictionary_list(doc_path, flag):
+    """
+    flag 0 : Contents_list / 1: Index_list / 2: Dictionary_list
+    """
     doc_result = docx2python(doc_path)
     doc_body_for_dic = doc_result.body[0][0][0]
     
