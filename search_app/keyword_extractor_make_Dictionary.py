@@ -2,12 +2,17 @@
 # 기본적으로 소문자로 변환해서 사전에 추가하고 그럼
 from kiwipiepy import Kiwi
 from make_dic import make_dictionary_list
-from nlp.kiwi_morp import get_all_token, get_noun, get_vv
+from nlp.kiwi_morp import kiwi_dictionary_n_fuction
 import time
 import json
 import pandas as pd
+import os
 
 class IOHandler:
+    """
+    handle = IOHandler('test.txt', 'result.txt')
+    kiwi.analyze(handle.read, handle.write)
+    """
     def __init__(self, input, output):
         self.input = open(input, encoding='utf-8')
         self.output = open(output, 'w', encoding='utf-8')
@@ -99,9 +104,11 @@ def json_2_list_Contents(json_path):
 
 if __name__ == "__main__":
     kiwi = Kiwi()
+    
+    dic_path = os.getcwd() + "/server_project/search_app/doc_data/new_dict.txt"
+    print(dic_path)
 
-    dic_path = "./server_project/search_app/doc_data/new_dict.txt"
-
+    
 
     # 목차 File에서 Contents를 추출하고 사전에 추가할 때 사용 
     """ 
@@ -112,14 +119,20 @@ if __name__ == "__main__":
 
     sentence = 'iManager Architecture 지정변경법 가르쳐주세요.'
 
+    new = kiwi_dictionary_n_fuction(dic_path)
+    result = new.generate_morp_word(sentence,1)
+    print(result)
+
     # json 파일 리스트로 받아옴
-    json_path = './server_project/search_app/result/iGate Introduction.json'
-    contents_list = json_2_list_Contents(json_path)
-    df = pd.DataFrame({'sentence':contents_list})
-    df = df.dropna()
-    print(df)
-    df["nn_token"] = df['sentence'].apply(lambda x: get_noun(x))
-    print(df)
+    # json_path = './server_project/search_app/result/iGate Introduction.json'
+    # contents_list = json_2_list_Contents(json_path)
+    # df = pd.DataFrame({'sentence':contents_list})
+    # df = df.dropna()
+    # print(df)
+    # df["nn_token"] = df['sentence'].apply(lambda x: get_noun(x))
+    # print(df)
+    
+    
     #kiwi.load_user_dictionary(dic_path)
     #kiwi.prepare()
     #result = kiwi.analyze(transform_Sentence_English2Lower(sentence), 1)
@@ -127,8 +140,5 @@ if __name__ == "__main__":
 
 
 
-    """
-    handle = IOHandler('test.txt', 'result.txt')
-    kiwi.analyze(handle.read, handle.write)
-    """
+   
 
