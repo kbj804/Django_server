@@ -7,8 +7,7 @@ class kiwi_dictionary_n_fuction:
         self.kiwi.load_user_dictionary(path)
         self.kiwi.prepare()
     
-    def get_noun(self,sen):
-        print(sen)
+    def get_noun(self, sen):
         _, self.nn_list, _= self.generate_morp_word(sen, 1)
         return self.nn_list
 
@@ -20,8 +19,9 @@ class kiwi_dictionary_n_fuction:
         _, _, self.vv_list = self.generate_morp_word(sen, 1)
         return self.vv_list
 
-    def get_analyze_result(self, sentence, analyze_num):
-        return 
+    def get_nn_list(self, sen):
+        _, self.nn_list, _= self.generate_morp_word(sen, 1)
+        return self.nn_list
 
     # 문장에서 형태소를 뽑아냄
     def generate_morp_word(self, sentence, analyze_num):
@@ -35,13 +35,14 @@ class kiwi_dictionary_n_fuction:
                 morp_word = ''
                 morp_nn=''
                 morp_vv=''
-                #print(i)
+                self.nn=[]
                 for word in self.result[i][0]:
                     morp_word += word[0]
                     morp_word += ' '
                     if word[1] in ['NNG','NNP','NNB','NP','SL','SN']:
                         morp_nn += word[0]
                         morp_nn += ' '
+                        self.nn.append(word[0])
                     elif word[1] in ['VV','VA','VX','VCP','VCN']:
                         morp_vv += word[0]
                         morp_vv += ' '
@@ -49,8 +50,11 @@ class kiwi_dictionary_n_fuction:
                 self.morp_word_list.append(morp_word)
                 self.morp_nn_list.append(morp_nn)
                 self.morp_vv_list.append(morp_vv)
-            return self.morp_word_list, self.morp_nn_list, self.morp_vv_list
+            return self.morp_word_list, self.nn, self.morp_vv_list
 
         except Exception as e:
             print(e)
             print("### ERROR 형태소 분석기 부분 에 뭐가 잘못된게 있는듯 ERROR ### ")
+
+    def __del__(self):
+        print("EXIT kiwi")

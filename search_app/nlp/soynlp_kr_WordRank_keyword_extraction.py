@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# soynlp 테스트용
 from krwordrank.word import KRWordRank
 import json
 from docx2python import docx2python

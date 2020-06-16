@@ -7,6 +7,7 @@ import time
 import json
 import pandas as pd
 import os
+from configs import configs
 
 class IOHandler:
     """
@@ -100,45 +101,40 @@ def json_2_list_Contents(json_path):
                 # print(type(w['content'][0]))
                 # print(w['content'])
                 temp_list.extend(w['content'])
-        return temp_list
+        
+        result_list = transform_List_English2Lower(temp_list)
+        return result_list
+
+def merge_list(t_list):
+    tl=[]
+    for l in t_list:
+        tl.extend(l)
+    return tl
+
 
 if __name__ == "__main__":
-    kiwi = Kiwi()
-    
-    dic_path = os.getcwd() + "/server_project/search_app/doc_data/new_dict.txt"
-    print(dic_path)
-
-    
+    # 파일 경로
 
     # 목차 File에서 Contents를 추출하고 사전에 추가할 때 사용 
     """ 
-    contents_list_path = "./server_project/search_app/doc_data/iGate_Contents_list.docx"
     contents_list = make_dictionary_list(contents_list_path, 0)
     add_Dictionary(dic_path, contents_list, 'a')
     """
+    path = configs()
+    kiwi_f = kiwi_dictionary_n_fuction(path.dictionary_path())
 
-    sentence = 'iManager Architecture 지정변경법 가르쳐주세요.'
-
-    new = kiwi_dictionary_n_fuction(dic_path)
-    result = new.generate_morp_word(sentence,1)
-    print(result)
+    # 테스트 용
+    # sentence = 'iManager Architecture 지정변경법 가르쳐주세요.'
+    # sen = transform_Sentence_English2Lower(sentence)  
+    # result = kiwi_f.get_nn(sen)
 
     # json 파일 리스트로 받아옴
-    # json_path = './server_project/search_app/result/iGate Introduction.json'
-    # contents_list = json_2_list_Contents(json_path)
-    # df = pd.DataFrame({'sentence':contents_list})
-    # df = df.dropna()
-    # print(df)
-    # df["nn_token"] = df['sentence'].apply(lambda x: get_noun(x))
-    # print(df)
-    
-    
-    #kiwi.load_user_dictionary(dic_path)
-    #kiwi.prepare()
-    #result = kiwi.analyze(transform_Sentence_English2Lower(sentence), 1)
-    #print(result)
+    contents_list = json_2_list_Contents(path.Json_path())
 
+    df = pd.DataFrame({'sentence':contents_list})
+    df = df.dropna()
 
+    df["nn_token"] = df['sentence'].apply(lambda x: kiwi_f.get_nn_list(x))
+    print(merge_list(df["nn_token"].tolist()))
 
-   
 
