@@ -1,4 +1,3 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
 from kiwipiepy import Kiwi
 
 class kiwi_dictionary_n_fuction:
@@ -50,7 +49,7 @@ class kiwi_dictionary_n_fuction:
                 self.morp_word_list.append(morp_word)
                 self.morp_nn_list.append(morp_nn)
                 self.morp_vv_list.append(morp_vv)
-            return self.morp_word_list, self.nn, self.morp_vv_list
+            return self.morp_word_list, self.morp_nn_list, self.morp_vv_list
 
         except Exception as e:
             print(e)

@@ -7,35 +7,8 @@ import time
 import json
 import pandas as pd
 import os
-from configs import configs
-
-class IOHandler:
-    """
-    handle = IOHandler('test.txt', 'result.txt')
-    kiwi.analyze(handle.read, handle.write)
-    """
-    def __init__(self, input, output):
-        self.input = open(input, encoding='utf-8')
-        self.output = open(output, 'w', encoding='utf-8')
-
-    def read(self, sent_id):
-        if sent_id == 0:
-            self.input.seek(0)
-            self.iter = iter(self.input)
-        try:
-            return next(self.iter)
-        except StopIteration:
-            return None
-
-    def write(self, sent_id, res):
-        print('Analyzed %dth row' % sent_id)
-        self.output.write(' '.join(map(lambda x:x[0]+'/'+x[1], res[0][0])) + '\n')
-
-    def __del__(self):
-        self.input.close()
-        self.output.close()
-
-
+from search_app_configs import PathConfig
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def add_Dictionary(path, contents_list, flag):
     """
@@ -120,8 +93,8 @@ if __name__ == "__main__":
     contents_list = make_dictionary_list(contents_list_path, 0)
     add_Dictionary(dic_path, contents_list, 'a')
     """
-    path = configs()
-    kiwi_f = kiwi_dictionary_n_fuction(path.dictionary_path())
+    path = PathConfig()
+    kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH)
 
     # 테스트 용
     # sentence = 'iManager Architecture 지정변경법 가르쳐주세요.'
@@ -129,12 +102,25 @@ if __name__ == "__main__":
     # result = kiwi_f.get_nn(sen)
 
     # json 파일 리스트로 받아옴
-    contents_list = json_2_list_Contents(path.Json_path())
+    contents_list = json_2_list_Contents(path.JSON_PATH)
 
     df = pd.DataFrame({'sentence':contents_list})
     df = df.dropna()
 
-    df["nn_token"] = df['sentence'].apply(lambda x: kiwi_f.get_nn_list(x))
-    print(merge_list(df["nn_token"].tolist()))
 
+    def del_list(l):
+        return l[0]
 
+    df["nn_token"] = df['sentence'].apply(lambda x: kiwi_f.get_noun(x))
+    df["nn_token"] =  df["nn_token"].apply(lambda x: del_list(x))
+    
+    # print(merge_list(df["nn_token"].tolist()))
+
+    stopwords=['것','동','inzent','16','17','id']
+    tfidf_vectorizer = TfidfVectorizer(stop_words = stopwords, max_features=1000, min_df=0.01)
+    tfidf_matrix = tfidf_vectorizer.fit_transform(df["nn_token"])
+
+    terms = tfidf_vectorizer.get_feature_names()
+
+    print(terms)
+    print(tfidf_matrix)
