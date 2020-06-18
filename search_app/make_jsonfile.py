@@ -3,8 +3,8 @@ import pandas as pd
 import re
 import json
 from collections import OrderedDict
-from make_dic import make_dictionary
-
+from make_dic import generate_Dictionary
+from search_app_configs import PathConfig
 
 
 def remove_blank(text_array):
@@ -109,8 +109,11 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
 
 
 def make_jsonFile(dic_path, doc_path):
+    igate_cl = generate_Dictionary(dic_path)
+    
     # 목차를 이용하여 사전 생성
-    index_dictionary = make_dictionary(dic_path, 2)
+    index_dictionary = igate_cl.DICTIONRAY_LIST
+
     json_file = []
     # 문서 로드 
     doc_result = docx2python(doc_path)
@@ -163,7 +166,11 @@ def make_jsonFile(dic_path, doc_path):
     with open(r"./server_project/search_app/result/iGate Introduction.json", 'w',encoding='utf-8') as make_file:
         json.dump(json_file, make_file,ensure_ascii=False, indent="\t")
 
-dic_path = "./server_project/search_app/doc_data/iGate_Contents_list.docx"
-doc_path = "./server_project/search_app/doc_data/iGate Introduction.docx"
-make_jsonFile(dic_path, doc_path)
+
+path = PathConfig()
+
+dic_path = path.CONTENTSLIST_PATH
+manual_doc_path = path.MANUAL_PATH
+
+make_jsonFile(dic_path, manual_doc_path)
 

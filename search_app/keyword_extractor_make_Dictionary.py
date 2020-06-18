@@ -117,7 +117,7 @@ if __name__ == "__main__":
     # print(merge_list(df["nn_token"].tolist()))
 
     stopwords=['것','동','inzent','16','17','id']
-    tfidf_vectorizer = TfidfVectorizer(stop_words = stopwords, max_features=1000, min_df=0.01)
+    tfidf_vectorizer = TfidfVectorizer(stop_words = stopwords, max_features=1000, min_df=0.01, ngram_range =(1,2))
     tfidf_matrix = tfidf_vectorizer.fit_transform(df["nn_token"])
 
     terms = tfidf_vectorizer.get_feature_names()
