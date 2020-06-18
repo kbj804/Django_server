@@ -106,8 +106,6 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
     return json_data
 
 
-
-
 def make_jsonFile(dic_path, doc_path):
     igate_cl = generate_Dictionary(dic_path)
     
@@ -154,7 +152,7 @@ def make_jsonFile(dic_path, doc_path):
                 json_data = generate_doc_to_json(index_len, content, main_title, sub_title, title, "string")
                 json_file.append(json_data)
                 
-                
+
         else:
             print('ID = {0}'.format(str(j)))
             # 테이블
@@ -169,8 +167,8 @@ def make_jsonFile(dic_path, doc_path):
 
 path = PathConfig()
 
-dic_path = path.CONTENTSLIST_PATH
+contentsList_path = path.CONTENTSLIST_PATH
 manual_doc_path = path.MANUAL_PATH
 
-make_jsonFile(dic_path, manual_doc_path)
+make_jsonFile(contentsList_path, manual_doc_path)
 

@@ -7,8 +7,8 @@ class generate_Dictionary:
     """
     INDEX_LIST, CONTENTS_LIST, DICTIONARY(INDEX,CONTENTS)
     """
-    def __init__(self, doc_path):
-        doc_result = docx2python(doc_path)
+    def __init__(self, contentsList_path):
+        doc_result = docx2python(contentsList_path)
         doc_body_for_dic = doc_result.body[0][0][0]
         
         pre_data1 = self.remove_blank_and_reg(doc_body_for_dic)
