@@ -1,59 +1,38 @@
 import datetime
 
-# def datetime_decorator(func):
-#         def decorated():
-#                 print(datetime.datetime.now())
-#                 func()
-#                 print(datetime.datetime.now())
-#         return decorated
 
-
-# @datetime_decorator
-# def main_function_4():
-#         print("MAIN FUNCTION 1 START")
-
-
-# @datetime_decorator
-# def main_function_5():
-#         print("MAIN FUNCTION 2 START")
-
-
-# @datetime_decorator
-# def main_function_6():
-#         print("MAIN FUNCTION 3 START")
-
-
-class DatetimeDecorator:
-    def __init__(self, f):
-            self.func = f
-
-    def __call__(self, *args, **kwargs):
-            print(datetime.datetime.now())
-            self.func(*args, **kwargs)
-            print(datetime.datetime.now())
-
-
-class MainClass:
+def my_logger(original_function):
+    import logging
+    logging.basicConfig(filename='{}.log'.format(original_function.__name__), level=logging.INFO)
     
-    @DatetimeDecorator
-    def main_function_1():
-        print("MAIN FUNCTION 1 START")
+    def wrapper(*args, **kwargs):
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        logging.info(
+            '[{}] 실행결과 args - {}, kwargs - {}'.format(timestamp, args, kwargs))
+        return original_function(*args, **kwargs)
+
+    return wrapper
 
 
-    @DatetimeDecorator
-    def __main_function_2():
-        print("MAIN FUNCTION 2 START")
+def my_timer(original_function):
+    import time
+
+    def wrapper(*args, **kwargs):
+        t1 = time.time()
+        result = original_function(*args, **kwargs)
+        t2 = time.time() - t1
+        print '{} 함수가 실행된 총 시간: {} 초'.format(original_function.__name__, t2)
+        return result
+
+    return wrapper
 
 
-    @DatetimeDecorator
-    def __main_function_3():
-        print("MAIN FUNCTION 3 START")
+@my_logger  #1
+@my_timer  #2
+def display_info(name, age):
+    time.sleep(1)
+    print 'display_info({}, {}) 함수가 실행됐습니다.'.format(name, age)
 
-
-
-my = MainClass()
-my.main_function_1()
-my._MainClass__main_function_2()
-my._MainClass__main_function_3()
+display_info('John', 25)
 
 
