@@ -122,7 +122,7 @@ cdqa_pipeline = QAPipeline(reader='models/bert_qa_korquad_vCPU.joblib')
 best_idx_scores=''
 
 while 100:
-    query=input('입력창:')
+    query=input('입력창:')5
     if query=='quit':
         break
     POS_query=ETRI_POS_Tagging(query)

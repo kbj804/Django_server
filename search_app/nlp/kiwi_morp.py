@@ -1,8 +1,8 @@
-from kiwipiepy import Kiwi
+from kiwipiepy import Kiwi, Option
 
 class kiwi_dictionary_n_fuction:
     def __init__(self, path):
-        self.kiwi = Kiwi()
+        self.kiwi = Kiwi(options=Option.LOAD_DEFAULT_DICTIONARY | Option.INTEGRATE_ALLOMORPH)
         self.kiwi.load_user_dictionary(path)
         self.kiwi.prepare()
     
@@ -13,6 +13,14 @@ class kiwi_dictionary_n_fuction:
     def get_all_token(self, sen):
         self.morp_list, _, _ = self.generate_morp_word(sen, 1)
         return self.morp_list
+
+    def get_token_str(self, sen):
+        self.morp_list, _, _ = self.generate_morp_word(sen, 1)
+        print(self.morp_list)
+        self.string = ''.join(self.morp_list)
+        # if '\\' in self.string:
+        #     self.string = self.string.translate({ord('\\'):'\\\\'})
+        return self.string
 
     def get_vv(self,sen):
         _, _, self.vv_list = self.generate_morp_word(sen, 1)
@@ -29,7 +37,7 @@ class kiwi_dictionary_n_fuction:
             self.morp_word_list =[]
             self.morp_nn_list=[]
             self.morp_vv_list=[]
-
+            print(self.result)
             for i in range(0, analyze_num):
                 morp_word = ''
                 morp_nn=''
@@ -57,3 +65,79 @@ class kiwi_dictionary_n_fuction:
 
     def __del__(self):
         print("EXIT kiwi")
+
+
+""" POS Tagging 분류표
+1. 체언
+    1) 명사(NN)
+        일반명사(NNG)
+        고유명사(NNP)
+        의존명사(NNB)
+    2) 대명사(NP) 
+        대명사(NP)
+    3) 수사(NR) 
+        수사(NR)
+2. 용언
+    1) 동사(VV) 
+         동사(VV)
+    2) 형용사(VA) 
+         형용사(VA)
+    3) 보조용언(VX) 
+         보조용언(VX)
+    4) 지정사(VC)
+         긍정지정사(VCP)
+         부정지정사(VCN)
+3. 수식언
+    1) 관형사(MM)
+         성상 관형사(MMA)
+         지시 관형사(MMD)
+         수 관형사(MMN)
+    2) 부사(MA)
+         일반부사(MAG)
+         접속부사(MAJ)
+4. 독립언
+    1) 감탄사(IC) 
+         감탄사(IC)
+5. 관계언 
+    1) 격조사(JK)
+        주격조사(JKS)
+        보격조사(JKC)
+        관형격조사(JKG) 
+        목적격조사(JKO)
+        부사격조사(JKB)
+        호격조사(JKV)
+        인용격조사(JKQ)
+    2) 보조사(JX)
+         보조사(JX)  
+    3) 접속조사(JC)
+         접속조사(JC) 
+6. 의존형태
+    1) 어미(EM)
+        선어말어미(EP)
+        종결어미(EF)
+        연결어미(EC)
+        명사형전성어미(ETN)
+        관형형전성어미(ETM)
+    2) 접두사(XP)
+         체언접두사(XPN)
+    3) 접미사(XS)
+        명사파생접미사(XSN)
+        동사파생접미사(XSV)
+        형용사파생접미사(XSA)
+    4) 어근(XR)
+         어근(XR)
+7. 기호
+    1) 일반기호(ST)
+        마침표, 물음표, 느낌표(SF)
+        쉼표, 가운뎃점, 콜론, 빗금(SP)
+        따옴표, 괄호표, 줄표(SS)
+        줄임표(SE)
+        붙임표(물결)(SO)
+        기타 기호(SW)
+    2) 외국어(SL) 외국어(SL)
+    3) 한자(SH) 한자(SH)
+    4) 숫자(SN) 숫자(SN)
+    5) 분석불능범주(NA) 분석불능범주(NA) 
+
+
+"""
