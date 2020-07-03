@@ -1,0 +1,2 @@
+model_checkpoint_path: "d:\\Project\\Django\\Scripts\\server_project\\search_app\\doc_data\\model\\check_point-100.ckpt"
+all_model_checkpoint_paths: "d:\\Project\\Django\\Scripts\\server_project\\search_app\\doc_data\\model\\check_point-100.ckpt"
