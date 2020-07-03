@@ -1,19 +1,27 @@
 from kiwipiepy import Kiwi, Option
+import sys
+import os
+sys.path.append( os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from search_app_configs import PathConfig
 
 class kiwi_dictionary_n_fuction:
     def __init__(self, path):
         self.kiwi = Kiwi(options=Option.LOAD_DEFAULT_DICTIONARY | Option.INTEGRATE_ALLOMORPH)
         self.kiwi.load_user_dictionary(path)
         self.kiwi.prepare()
+
+        self.josa = ['JK','JKS','JKC','JKG','JKO','JKB','JKV','JKQ','JX','JC']
     
     def get_noun(self, sen):
         _, self.nn_list, _= self.generate_morp_word(sen, 1)
         return self.nn_list
 
+    # 문장 전체를 리스트형태로 띄어쓰기만 해서 리턴
     def get_all_token(self, sen):
-        self.morp_list, _, _ = self.generate_morp_word(sen, 1)
-        return self.morp_list
+        morp_list, _, _, _ = self.generate_morp_word(sen, 1)
+        return morp_list
 
+    # 문장 전체를 토큰화 후 문자열 리턴
     def get_token_str(self, sen):
         self.morp_list, _, _ = self.generate_morp_word(sen, 1)
         print(self.morp_list)
@@ -30,34 +38,65 @@ class kiwi_dictionary_n_fuction:
         _, self.nn_list, _= self.generate_morp_word(sen, 1)
         return self.nn_list
 
+    # 조사 없애고 나머지부분 문자열형태로 리턴. EX) 관찰 가능 하 고 처리 가능 하 ᆫ 범위 내 문장 입력 받 어 정해진 형태 출력 제한 되 ᆫ 시간 내 출력 하 어야 하 ᆫ다는 제약 적 용도 고려 하 ᆫ 관점 이 다 .
+    def get_no_josa_token(self, sen):
+        _, _, _, nosa_list = self.generate_morp_word(sen,1)
+        string = ''.join(nosa_list)
+        return string
+    
+    # 튜플 리스트 리턴
+    def k_pos(self, sentence): # [('관찰', 'NNG'), ('가능', 'NNG'), ('하', 'XSA'), ('고', 'EC'), ('처리', 'NNG'), ('가능', 'NNG'), ('하', 'XSA'), ('ᆫ', 'ETM'), ('범위', 'NNG')]
+        tuple_list=[]
+        result = self.kiwi.analyze(sentence, 1)
+        for i in result[0][0]:
+            word, pos = i[0], i[1]
+            new_tuple = (word, pos)
+            tuple_list.append(new_tuple)
+        return tuple_list
+
+    def k_morphs(self, sen):
+        token_list=[]
+        result = self.kiwi.analyze(sen, 1)
+        for i in result[0][0]:
+            token_list.append(i[0])
+        return token_list
+
     # 문장에서 형태소를 뽑아냄
     def generate_morp_word(self, sentence, analyze_num):
         try:
-            self.result = self.kiwi.analyze(sentence, analyze_num)
-            self.morp_word_list =[]
-            self.morp_nn_list=[]
-            self.morp_vv_list=[]
-            print(self.result)
+            result = self.kiwi.analyze(sentence, analyze_num)
+            morp_word_list =[]
+            morp_nn_list=[]
+            morp_vv_list=[]
+            morp_not_josa_list=[]
             for i in range(0, analyze_num):
                 morp_word = ''
                 morp_nn=''
                 morp_vv=''
-                self.nn=[]
-                for word in self.result[i][0]:
+                morp_not_josa=''
+                nn=[]
+                for word in result[i][0]:
                     morp_word += word[0]
                     morp_word += ' '
-                    if word[1] in ['NNG','NNP','NNB','NP','SL','SN']:
-                        morp_nn += word[0]
-                        morp_nn += ' '
-                        self.nn.append(word[0])
-                    elif word[1] in ['VV','VA','VX','VCP','VCN']:
-                        morp_vv += word[0]
-                        morp_vv += ' '
 
-                self.morp_word_list.append(morp_word)
-                self.morp_nn_list.append(morp_nn)
-                self.morp_vv_list.append(morp_vv)
-            return self.morp_word_list, self.morp_nn_list, self.morp_vv_list
+                    if word[1] not in self.josa:
+                        morp_not_josa += word[0]
+                        morp_not_josa +=' '
+                        if word[1] in ['NNG','NNP','NNB','NP','NR','SL','SN']:
+                            morp_nn += word[0]
+                            morp_nn += ' '
+                            nn.append(word[0])
+                        elif word[1] in ['VV','VA','VX','VCP','VCN']:
+                            morp_vv += word[0]
+                            morp_vv += ' '
+                    else:
+                        pass
+                morp_word_list.append(morp_word)
+                morp_nn_list.append(morp_nn)
+                morp_vv_list.append(morp_vv)
+                morp_not_josa_list.append(morp_not_josa)
+
+            return morp_word_list, morp_nn_list, morp_vv_list, morp_not_josa_list
 
         except Exception as e:
             print(e)
@@ -65,6 +104,18 @@ class kiwi_dictionary_n_fuction:
 
     def __del__(self):
         print("EXIT kiwi")
+
+
+# # 전체 Path 설정
+# path = PathConfig()
+
+# # Kiwi 함수 사용 설정
+# kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH)
+# sen = "관찰 가능하고 처리 가능한 범위 내의 문장을 입력으로 받아 정해진 형태의 출력을 제한된 시간 내에 출력해야 한다는 제약적 용도를 고려한 관점이다. "
+# result = kiwi_f.k_morphs(sen)
+
+# print(result)
+
 
 
 """ POS Tagging 분류표
