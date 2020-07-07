@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from docx2python import docx2python
 import pandas as pd 
 import re

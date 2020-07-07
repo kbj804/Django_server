@@ -25,13 +25,12 @@ SECRET_KEY = 'k+&)4z&v+_lim16o_a+uoi3d^k=ch1+#a4@spg^7_=5xw1)_lu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 '''
 서버를 python manage.py runserver 0.0.0.0:8000 or 192.168.21.38:8000 으로 열면
 해당 IP에서 접근은 가능하지만 APP에 대한 권한이 필요함.
 아래 ALLOWED_HOSTS 에 IP를 추가해주면 해당 IP는 Django Project 에 접근 가능
 '''
-ALLOWED_HOSTS = ['192.168.21.38']
+ALLOWED_HOSTS = ['localhost', '192.168.21.38']
 
 
 # Application definition

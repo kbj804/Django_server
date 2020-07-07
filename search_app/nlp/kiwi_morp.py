@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from kiwipiepy import Kiwi, Option
 import sys
 import os
@@ -38,8 +39,8 @@ class kiwi_dictionary_n_fuction:
         _, self.nn_list, _= self.generate_morp_word(sen, 1)
         return self.nn_list
 
-    # 조사 없애고 나머지부분 문자열형태로 리턴. EX) 관찰 가능 하 고 처리 가능 하 ᆫ 범위 내 문장 입력 받 어 정해진 형태 출력 제한 되 ᆫ 시간 내 출력 하 어야 하 ᆫ다는 제약 적 용도 고려 하 ᆫ 관점 이 다 .
-    def get_no_josa_token(self, sen):
+    # 조사 없애고 나머지부분 문자열형태로 리턴. 
+    def get_no_josa_token(self, sen): # EX) 관찰 가능 하 고 처리 가능 하 ᆫ 범위 내 문장 입력 받 어 정해진 형태 출력 제한 되 ᆫ 시간 내 출력 하 어야 하 ᆫ다는 제약 적 용도 고려 하 ᆫ 관점 이 다 .
         _, _, _, nosa_list = self.generate_morp_word(sen,1)
         string = ''.join(nosa_list)
         return string
@@ -53,8 +54,9 @@ class kiwi_dictionary_n_fuction:
             new_tuple = (word, pos)
             tuple_list.append(new_tuple)
         return tuple_list
-
-    def k_morphs(self, sen):
+    
+    # 단순 단어만 리스트형태로 리턴
+    def k_morphs(self, sen): # ['관찰', '가능', '하', '고', '처리', '가능', '하' ... ..]
         token_list=[]
         result = self.kiwi.analyze(sen, 1)
         for i in result[0][0]:
@@ -106,15 +108,15 @@ class kiwi_dictionary_n_fuction:
         print("EXIT kiwi")
 
 
-# # 전체 Path 설정
-# path = PathConfig()
+# 전체 Path 설정
+path = PathConfig()
 
-# # Kiwi 함수 사용 설정
-# kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH)
-# sen = "관찰 가능하고 처리 가능한 범위 내의 문장을 입력으로 받아 정해진 형태의 출력을 제한된 시간 내에 출력해야 한다는 제약적 용도를 고려한 관점이다. "
-# result = kiwi_f.k_morphs(sen)
+# Kiwi 함수 사용 설정6
+kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH)
+sen = "이 방법을 사용하려면 구문이 디버거 확장을 통해 전달되어야한다"
+result = kiwi_f.k_morphs(sen)
 
-# print(result)
+print(result)
 
 
 

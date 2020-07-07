@@ -37,7 +37,7 @@ def preprocess_data(tokenizing):
         encode.append(q)
         decode.append(i)
     # encode: Question, decode: Intent Idx
-    return {'encode': encode, 'decode': decode}
+    return {'encode': encode, 'decode': decode} 
 
 def train_vector_model(train_data_list, train):
     if train:
