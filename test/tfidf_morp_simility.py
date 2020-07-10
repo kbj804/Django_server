@@ -65,7 +65,7 @@ def get_all_token(sen):
 
 
 # 직접적으로 비교할 문장을 벡터화하여 두 벡터 사이의 코사인유사도를 구함
-sen = '청소년수련시설에 대해 요금 있음?'
+sen = '보죠계량기 사용량이 차이가 있는데?'
 srch_vector = tfidf.transform(get_all_token(sen))
 
 # print(srch_vector.shape)

@@ -1,7 +1,7 @@
 # 목차(Contents List)를 Dictionary로 바꿀 때 사용
 # 기본적으로 소문자로 변환해서 사전에 추가하고 그럼
 from kiwipiepy import Kiwi
-from make_dic import make_dictionary_list
+from make_dic import generate_Dictionary
 from nlp.kiwi_morp import kiwi_dictionary_n_fuction
 import time
 import json

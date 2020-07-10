@@ -14,7 +14,7 @@ class kiwi_dictionary_n_fuction:
         self.josa = ['JK','JKS','JKC','JKG','JKO','JKB','JKV','JKQ','JX','JC']
     
     def get_noun(self, sen):
-        _, self.nn_list, _= self.generate_morp_word(sen, 1)
+        _, self.nn_list, _, _ = self.generate_morp_word(sen, 1)
         return self.nn_list
 
     # 문장 전체를 리스트형태로 띄어쓰기만 해서 리턴
