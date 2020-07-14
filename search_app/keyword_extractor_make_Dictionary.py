@@ -93,8 +93,10 @@ if __name__ == "__main__":
     contents_list = make_dictionary_list(contents_list_path, 0)
     add_Dictionary(dic_path, contents_list, 'a')
     """
+    file_name="iGate Introduction"
+
     path = PathConfig()
-    kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH)
+    kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH + file_name + '_dic.txt')
 
     # 테스트 용
     # sentence = 'iManager Architecture 지정변경법 가르쳐주세요.'
@@ -102,7 +104,7 @@ if __name__ == "__main__":
     # result = kiwi_f.get_nn(sen)
 
     # json 파일 리스트로 받아옴
-    contents_list = json_2_list_Contents(path.JSON_PATH)
+    contents_list = json_2_list_Contents(path.RESULT_DATA_PATH + file_name)
 
     df = pd.DataFrame({'sentence':contents_list})
     df = df.dropna()

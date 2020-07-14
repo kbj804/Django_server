@@ -5,22 +5,23 @@ class Config:
     APP_NAME = 'search_app'
 
 class PathConfig(Config):
-    current_path = os.path.dirname(os.path.realpath(__file__))
-    
+    temp_path = os.path.dirname(os.path.realpath(__file__))
+    current_path = temp_path.replace("\\",'/')
+
     # 아마도 이게 실질적으로 사용할 path임. 뒤에 파일명만 붙여주면 됨
-    DOCUMENT_DATA_PATH = current_path + "\\doc_data\\"
-    RESULT_DATA_PATH = current_path + "\\result\\"
+    DOCUMENT_DATA_PATH = current_path + "/doc_data"
+    RESULT_DATA_PATH = current_path + "/result"
 
     # Sample Test용
-    DICTIONARY_PATH = DOCUMENT_DATA_PATH + "new_dict.txt"
-    CONTENTSLIST_PATH = DOCUMENT_DATA_PATH + "iGate_Contents_list.docx"
-    JSON_PATH = RESULT_DATA_PATH + "iGate Introduction.json"
-    MANUAL_PATH = DOCUMENT_DATA_PATH + "iGate Introduction.docx"
-    QnA_PATH = DOCUMENT_DATA_PATH + "Manual_QnA_v1.0.xlsx"
+    DICTIONARY_PATH = DOCUMENT_DATA_PATH + "/dictionary"
+    CONTENTSLIST_PATH = DOCUMENT_DATA_PATH + "/contentslist"
+    # JSON_PATH = RESULT_DATA_PATH + "iGate Introduction.json"
+    MANUAL_PATH = DOCUMENT_DATA_PATH + "/manual"
+    QnA_PATH = DOCUMENT_DATA_PATH + "/qna"
     
     # INTENT Learning
-    FASTTEXT_DIR = DOCUMENT_DATA_PATH + "fasttext\\"
-    model_path = DOCUMENT_DATA_PATH + "model\\"
+    FASTTEXT_DIR = DOCUMENT_DATA_PATH + "/fasttext"
+    model_path = DOCUMENT_DATA_PATH + "/model"
 
 class IntentConfigs(Config):
     encode_length = 15
