@@ -110,12 +110,12 @@ class kiwi_dictionary_n_fuction:
 
 # 전체 Path 설정
 path = PathConfig()
-file_name = '/iGate Introduction'
+file_name = 'iGate Introduction'
 
 # Kiwi 함수 사용 설정6
 kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH + file_name + '_dic.txt')
-sen = "이 방법을 사용하려면 구문이 디버거 확장을 통해 전달되어야한다"
-result = kiwi_f.k_morphs(sen)
+sen = "메시의 축구경기 지금 생방송으로 만나보세요"
+result = kiwi_f.get_noun(input())
 
 print(result)
 

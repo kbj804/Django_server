@@ -48,7 +48,7 @@ class generate_Dictionary:
                     contents_list.append(d_list)
                     index_list.append(i_list)
 
-                    break
+                    break89
         return contents_list, index_list
 
     def find_num_n_remove_Back(self, doc_list): # 뒷부분에 있는 숫자(페이지)를 제거
@@ -64,9 +64,9 @@ class generate_Dictionary:
 
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     
-#     file_name = 'iGate Introduction'
-#     path = PathConfig()
-#     dictionary = generate_Dictionary(path.CONTENTSLIST_PATH + file_name + '_cl.docx')
-#     print(dictionary.CONTENTS_LIST)
+    file_name = 'iTools Guide v1.0.1'
+    path = PathConfig()
+    dictionary = generate_Dictionary(path.CONTENTSLIST_PATH + file_name + '_cl.docx')
+    print(dictionary.CONTENTS_LIST)

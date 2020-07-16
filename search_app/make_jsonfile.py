@@ -107,7 +107,7 @@ def generate_doc_to_json(index_len, contents_list, main_title, sub_title, title,
     return json_data
 
 
-def make_jsonFile(dic_path, doc_path):
+def make_jsonFile(dic_path, doc_path, file_name):
     igate_cl = generate_Dictionary(dic_path)
     
     # 목차를 이용하여 사전 생성
@@ -136,7 +136,7 @@ def make_jsonFile(dic_path, doc_path):
                     if text in index_dictionary:
                         #print(text)
                         index = index_dictionary[text] # index는 해당 목차(사전)의 번호
-                        index_len = len(index)
+                        index_len = len(index) 
                         
                         # 1: 대분류 / 2: 중분류 / 3: 소분류
                         if index_len == 1: 
@@ -162,16 +162,17 @@ def make_jsonFile(dic_path, doc_path):
             json_data= generate_doc_to_json(index_len, table, main_title, sub_title, title, "table")
             json_file.append(json_data)
     
-    with open(r"./server_project/search_app/result/iGate Introduction.json", 'w',encoding='utf-8') as make_file:
+    with open(path.RESULT_DATA_PATH + file_name + '.json', 'w',encoding='utf-8') as make_file:
         json.dump(json_file, make_file,ensure_ascii=False, indent="\t")
 
+if __name__ == "__main__":
+    
+    path = PathConfig()
 
-path = PathConfig()
+    file_name = 'iGate Introduction'
 
-file_name = 'iGate Introduction'
+    contentsList_path = path.CONTENTSLIST_PATH + file_name + '_cl.docx'
+    manual_doc_path = path.MANUAL_PATH + file_name + '.docx'
 
-contentsList_path = path.CONTENTSLIST_PATH + file_name + '_cl.docx'
-manual_doc_path = path.MANUAL_PATH + file_name + '.docx'
-
-make_jsonFile(contentsList_path, manual_doc_path)
+    make_jsonFile(contentsList_path, manual_doc_path, file_name)
 
