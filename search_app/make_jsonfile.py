@@ -168,8 +168,10 @@ def make_jsonFile(dic_path, doc_path):
 
 path = PathConfig()
 
-contentsList_path = path.CONTENTSLIST_PATH
-manual_doc_path = path.MANUAL_PATH
+file_name = 'iGate Introduction'
+
+contentsList_path = path.CONTENTSLIST_PATH + file_name + '_cl.docx'
+manual_doc_path = path.MANUAL_PATH + file_name + '.docx'
 
 make_jsonFile(contentsList_path, manual_doc_path)
 

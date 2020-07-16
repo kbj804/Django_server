@@ -5,7 +5,7 @@ import zipfile
 
 import shutil
 from os import rename
-
+from search_app_configs import PathConfig
 
 # ./server_project/search_app/doc_data
 def generate_file_list(path):
@@ -22,10 +22,10 @@ def generate_file_list(path):
 def export_json_file():
     pass
 
-def mecab_Test():
-    from eunjeon import Mecab
-    mecab = Mecab()
-    print(mecab.morphs('영등포구청역에 있는 맛집 좀 알려주세요.'))
 
+if __name__ == "__main__":
+    path = PathConfig()
+    manual_list = generate_file_list(path.MANUAL_PATH)
 
-mecab_Test()
+    for file_name in manual_list:
+        print(path.MANUAL_PATH + file_name)

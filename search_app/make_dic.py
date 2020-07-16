@@ -29,7 +29,7 @@ class generate_Dictionary:
                 #Append to list
                 texts.append(line)
         return texts
-    
+
     def find_num_n_remove_Front(self, doc_list): # 앞부분에 있는 숫자를 제거하고 index를 생성
         i_list=[]
         index_list=[]
@@ -66,14 +66,7 @@ class generate_Dictionary:
 
 # if __name__ == "__main__":
     
-    # [ iGate_Contents_list.docx , iTools_Contents_list.docx ] 
-    # path = PathConfig()
-    # dictionary = generate_Dictionary(path.CONTENTSLIST_PATH)
-    # print(dictionary.CONTENTS_LIST)
-
-    #result_dic = make_dictionary(r"./server_project/search_app/doc_data/iGate_Contents_list.docx", 2)
-    #print(result_dic)
-
-    # 키워드 한번 보자
-    #for key in result_dic.keys():
-    #    print(key, result_dic[key])
+#     file_name = 'iGate Introduction'
+#     path = PathConfig()
+#     dictionary = generate_Dictionary(path.CONTENTSLIST_PATH + file_name + '_cl.docx')
+#     print(dictionary.CONTENTS_LIST)

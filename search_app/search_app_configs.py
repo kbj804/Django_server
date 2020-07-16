@@ -9,19 +9,18 @@ class PathConfig(Config):
     current_path = temp_path.replace("\\",'/')
 
     # 아마도 이게 실질적으로 사용할 path임. 뒤에 파일명만 붙여주면 됨
-    DOCUMENT_DATA_PATH = current_path + "/doc_data"
-    RESULT_DATA_PATH = current_path + "/result"
-
-    # Sample Test용
-    DICTIONARY_PATH = DOCUMENT_DATA_PATH + "/dictionary"
-    CONTENTSLIST_PATH = DOCUMENT_DATA_PATH + "/contentslist"
-    # JSON_PATH = RESULT_DATA_PATH + "iGate Introduction.json"
-    MANUAL_PATH = DOCUMENT_DATA_PATH + "/manual"
-    QnA_PATH = DOCUMENT_DATA_PATH + "/qna"
+    DOCUMENT_DATA_PATH = current_path + "/doc_data/"
+    RESULT_DATA_PATH = current_path + "/result/"
     
-    # INTENT Learning
-    FASTTEXT_DIR = DOCUMENT_DATA_PATH + "/fasttext"
-    model_path = DOCUMENT_DATA_PATH + "/model"
+    # doc_data 내부 Directory
+    CONTENTSLIST_PATH = DOCUMENT_DATA_PATH + "contentslist/"
+    DICTIONARY_PATH = DOCUMENT_DATA_PATH + "dictionary/"
+    FASTTEXT_PATH = DOCUMENT_DATA_PATH + "fasttext/"
+
+    MANUAL_PATH = DOCUMENT_DATA_PATH + "manual/"
+    MODEL_PATH = DOCUMENT_DATA_PATH + "model/"
+    QnA_PATH = DOCUMENT_DATA_PATH + "qna/"
+    
 
 class IntentConfigs(Config):
     encode_length = 15
