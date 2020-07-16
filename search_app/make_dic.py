@@ -48,7 +48,7 @@ class generate_Dictionary:
                     contents_list.append(d_list)
                     index_list.append(i_list)
 
-                    break89
+                    break
         return contents_list, index_list
 
     def find_num_n_remove_Back(self, doc_list): # 뒷부분에 있는 숫자(페이지)를 제거
@@ -70,3 +70,5 @@ if __name__ == "__main__":
     path = PathConfig()
     dictionary = generate_Dictionary(path.CONTENTSLIST_PATH + file_name + '_cl.docx')
     print(dictionary.CONTENTS_LIST)
+    print(dictionary.INDEX_LIST)
+    print(dictionary.DICTIONRAY_LIST)

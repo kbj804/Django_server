@@ -10,14 +10,14 @@ import os
 from search_app_configs import PathConfig
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def add_Dictionary(path, contents_list, flag):
+def add_Dictionary(file_path, contents_list, flag):
     """
     리스트(목차) 받아서 사전화 (영어는 소문자로 transform_List_English2Lower 함수)
     flag = a: 이어쓰기 / w: 새로만들어쓰기 / r: 읽기
     """
     c_list = transform_List_English2Lower(contents_list)
 
-    with open(path, flag, encoding='utf8') as f:
+    with open(file_path, flag, encoding='utf8') as f:
         # kiwi.add_user_word(word, 'NNP', 3.0)
         for word in c_list:
             data = '\n' + word + '\t' + 'NNP' + '\t' + '3.0'

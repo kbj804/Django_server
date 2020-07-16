@@ -24,20 +24,19 @@ class kiwi_dictionary_n_fuction:
 
     # 문장 전체를 토큰화 후 문자열 리턴
     def get_token_str(self, sen):
-        self.morp_list, _, _ = self.generate_morp_word(sen, 1)
-        print(self.morp_list)
-        self.string = ''.join(self.morp_list)
+        morp_list, _, _, _ = self.generate_morp_word(sen, 1)
+        string = ''.join(morp_list)
         # if '\\' in self.string:
         #     self.string = self.string.translate({ord('\\'):'\\\\'})
-        return self.string
+        return string
 
     def get_vv(self,sen):
-        _, _, self.vv_list = self.generate_morp_word(sen, 1)
-        return self.vv_list
+        _, _, vv_list, _ = self.generate_morp_word(sen, 1)
+        return vv_list
 
     def get_nn_list(self, sen):
-        _, self.nn_list, _= self.generate_morp_word(sen, 1)
-        return self.nn_list
+        _, nn_list, _, _= self.generate_morp_word(sen, 1)
+        return nn_list
 
     # 조사 없애고 나머지부분 문자열형태로 리턴. 
     def get_no_josa_token(self, sen): # EX) 관찰 가능 하 고 처리 가능 하 ᆫ 범위 내 문장 입력 받 어 정해진 형태 출력 제한 되 ᆫ 시간 내 출력 하 어야 하 ᆫ다는 제약 적 용도 고려 하 ᆫ 관점 이 다 .
