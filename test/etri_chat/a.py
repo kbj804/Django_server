@@ -1,3 +1,4 @@
+# 잠시멈춤
 import os
 
 import tensorflow as tf
