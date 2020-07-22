@@ -53,3 +53,8 @@ testcase	NNP	3.0
 testsuit	NNP	3.0
 통합 상황판	NNP	3.0
 imanager	NNP	3.0
+위쳐	NNP	3.0
+비트리	NNP	3.0
+Psycho	NNP	3.0
+수퍼비	NNP	3.0
+쿠기	NNP	3.0

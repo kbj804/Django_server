@@ -54,6 +54,9 @@ class kiwi_dictionary_n_fuction:
             tuple_list.append(new_tuple)
         return tuple_list
     
+    def k_analyze(self, sentence):
+        return self.kiwi.analyze(sentence, 1)
+    
     # 단순 단어만 리스트형태로 리턴
     def k_morphs(self, sen): # ['관찰', '가능', '하', '고', '처리', '가능', '하' ... ..]
         token_list=[]
@@ -83,7 +86,7 @@ class kiwi_dictionary_n_fuction:
                     if word[1] not in self.josa:
                         morp_not_josa += word[0]
                         morp_not_josa +=' '
-                        if word[1] in ['NNG','NNP','NNB','NP','NR','SL','SN']:
+                        if word[1] in ['NNG','NNP','NNB','NP','NR','SL']:
                             morp_nn += word[0]
                             morp_nn += ' '
                             nn.append(word[0])
@@ -113,10 +116,12 @@ file_name = 'iGate Introduction'
 
 # Kiwi 함수 사용 설정6
 kiwi_f = kiwi_dictionary_n_fuction(path.DICTIONARY_PATH + file_name + '_dic.txt')
-sen = "메시의 축구경기 지금 생방송으로 만나보세요"
-result = kiwi_f.get_noun(input())
+# sen = "메시의 축구경기 지금 생방송으로 만나보세요"
 
-print(result)
+sen_list = ['성적입력 알림 성적이 입력되었습니다행정법1', '비트리 2 포인트 적립되었습니다', 'Heu  Full Ver 수퍼비', 'Psycho Red Velvet 레드벨벳', '피클플레이 픽 제출 마감 1시간 전 픽 제출 1시간 전입니다 잊지 말고 픽 제출하세요 ', '행운퀴즈 광고 넷플릭스 위쳐 퀴즈에 참여하세요', '피클플레이 픽 마감 2시간 전 픽 하고 2019년 마지막 주말을 즐겨볼까', '빌어먹을 인연 Feat 식케이 쿠기 Coogie', 'V3 Mobile Plus 20 안전하게 보호하고 있습니다']
+for sen in sen_list:
+    result = kiwi_f.k_analyze(sen)
+    print(result)
 
 
 
